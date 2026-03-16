@@ -164,6 +164,30 @@ if has_config("moore-gpu") then
     includes("xmake/moore.lua")
 end
 
+-- 沐曦 (Muxi)
+option("muxi-gpu")
+    set_default(false)
+    set_showmenu(true)
+    set_description("Whether to compile implementations for Muxi GPU")
+option_end()
+
+if has_config("muxi-gpu") then
+    add_defines("ENABLE_MUXI_API")
+    includes("xmake/muxi.lua")
+end
+
+-- 天数智芯 (Tianshu)
+option("tianshu-gpu")
+    set_default(false)
+    set_showmenu(true)
+    set_description("Whether to compile implementations for Tianshu GPU")
+option_end()
+
+if has_config("tianshu-gpu") then
+    add_defines("ENABLE_TIANSHU_API")
+    includes("xmake/tianshu.lua")
+end
+
 -- 海光DCU
 option("hygon-dcu")
     set_default(false)
@@ -254,6 +278,12 @@ target("infinirt")
     if has_config("moore-gpu") then
         add_deps("infinirt-moore")
     end
+    if has_config("muxi-gpu") then
+        add_deps("infinirt-muxi")
+    end
+    if has_config("tianshu-gpu") then
+        add_deps("infinirt-tianshu")
+    end
     if has_config("iluvatar-gpu") then
         add_deps("infinirt-iluvatar")
     end
@@ -307,6 +337,12 @@ target("infiniop")
     if has_config("moore-gpu") then
         add_deps("infiniop-moore")
     end
+    if has_config("muxi-gpu") then
+        add_deps("infiniop-muxi")
+    end
+    if has_config("tianshu-gpu") then
+        add_deps("infiniop-tianshu")
+    end
     if has_config("kunlun-xpu") then
         add_deps("infiniop-kunlun")
     end
@@ -351,6 +387,14 @@ target("infiniccl")
 
     if has_config("moore-gpu") then
         add_deps("infiniccl-moore")
+    end
+
+    if has_config("muxi-gpu") then
+        add_deps("infiniccl-muxi")
+    end
+
+    if has_config("tianshu-gpu") then
+        add_deps("infiniccl-tianshu")
     end
 
     if has_config("kunlun-xpu") then
